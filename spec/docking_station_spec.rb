@@ -16,8 +16,10 @@ describe Dockingstation do
     expect { Dockingstation.new.release_bike }.to raise_error(RuntimeError)
   end
 
-  it "raises an error when docking station is full" do
-    expect { Dockingstation.new.dock(Bike.new) }.to raise_error(RuntimeError)
+  describe '#dock' do 
+    it "raises an error when docking station is full" do
+      20.times { subject.dock(Bike.new) }
+      expect { subject.dock(Bike.new) }.to raise_error 'Docking Station is full'
+    end
   end
-
 end
