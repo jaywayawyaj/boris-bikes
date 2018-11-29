@@ -4,10 +4,13 @@ describe Dockingstation do
 
   it { is_expected.to respond_to :release_bike }
 
-  it {is_expected.to respond_to(:dock).with(1).argument}
+  # check step 11
+  # it 'gets a bike and check if working' do
+  #   bike = Dockingtation.new.release_bike
+  #   expect(bike.working?).to eq true
+  # end
 
-  #expect { raise }
-  # expect { raise Dockingstation.new.release_bike }.to raise_error
+  it {is_expected.to respond_to(:dock).with(1).argument}
 
   it "raises" do
     expect { Dockingstation.new.release_bike }.to raise_error
@@ -15,7 +18,3 @@ describe Dockingstation do
 
 end
 
-
-  # it { expect(subject.empty?).to raise_error("Docking Station empty") }
-
-  # it { expect(subject.empty?).to be_truthy }
