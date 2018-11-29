@@ -10,4 +10,8 @@ class Dockingstation
     @bike = bike
   end
 
+  # def empty?
+  #
+  # end
+
 end
