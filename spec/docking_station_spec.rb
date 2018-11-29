@@ -12,9 +12,12 @@ describe Dockingstation do
 
   it {is_expected.to respond_to(:dock).with(1).argument}
 
-  it "raises" do
-    expect { Dockingstation.new.release_bike }.to raise_error
+  it "raises an error when no bikes are available" do
+    expect { Dockingstation.new.release_bike }.to raise_error(RuntimeError)
+  end
+
+  it "raises an error when docking station is full" do
+    expect { Dockingstation.new.dock(Bike.new) }.to raise_error(RuntimeError)
   end
 
 end
-
