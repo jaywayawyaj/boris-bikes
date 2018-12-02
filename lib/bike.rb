@@ -4,4 +4,6 @@ class Bike
     true
   end
 
+  def report
+  end
 end

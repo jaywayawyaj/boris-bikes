@@ -1,23 +1,49 @@
 require 'docking_station'
 
-describe Dockingstation do
+describe DockingStation do
+  let (:station) {DockingStation.new}
+  let (:bike) {Bike.new}
 
-  it "Docking station respods to #release_bike method" do
-    expect(subject).to respond_to :release_bike
+  context "#initialize with parameter" do
+    let (:docking_station) {DockingStation.new(10)}
+
+    it "takes an argument for capacity" do
+      expect(docking_station.capacity).to eql(10)
+    end
+
   end
 
-  it "Docking station responds to #dock with 1 argument" do
-    expect(subject).to respond_to(:dock).with(1).argument
+  context "#initialize without parameter" do
+    let (:docking_station) {DockingStation.new}
+
+    it "returns the default value for capacity if no argument is given" do
+      expect(docking_station.capacity).to eql(DockingStation::DEFAULT_CAPACITY)
+    end
+
   end
 
-  it "raises an error when no bikes are available" do
-    expect { subject.release_bike }.to raise_error 'No bikes available'
+  context "#release_bike" do
+
+    it 'causes an error if the Docking Station is empty' do
+      expect{station.release_bike}.to raise_error "No bikes available"
+    end
+
+    it 'It responds to release_bike' do
+      expect(station).to respond_to(:release_bike)
+    end
+
+    it "doesn't release broken bikes if reported broken" do
+      bike.report
+      expect{station.release_bike(bike)}.to raise_error "Broken bike"
+    end
   end
 
-  describe '#dock' do
-    it "raises an error when docking station is full" do
-      20.times { subject.dock(Bike.new) }
-      expect { subject.dock(Bike.new) }.to raise_error 'Docking Station is full'
+
+  context "#dock" do
+
+    it 'should cause an error if the Docking Station is full' do
+      DockingStation::DEFAULT_CAPACITY.times { station.dock(bike) }
+      expect{ station.dock(bike) }.to raise_error 'Docking Station Full'
     end
   end
 end
